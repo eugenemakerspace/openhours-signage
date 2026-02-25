@@ -30,6 +30,15 @@ html, body {
   width: auto;
 }
 
+.header-contact {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.9vw;
+  color: #ccc;
+}
+
 /* Dashboard layout */
 .dashboard {
   display: flex;
@@ -126,12 +135,10 @@ html, body {
   letter-spacing: 1px;
 }
 
-.qr-placeholder {
+.qr-image {
   flex-shrink: 0;
-}
-
-.qr-svg {
-  width: 8vh;
   height: 8vh;
+  width: auto;
   display: block;
+  margin-left: auto;
 }
