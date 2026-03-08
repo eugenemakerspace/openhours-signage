@@ -11,124 +11,154 @@ html, body {
   height: 100vh;
   overflow: hidden;
   font-family: "Titillium Web", Arial, sans-serif;
+  font-size: 3vw;
   background-color: #111;
   color: #eee;
 }
 
+/* 3-row flex layout */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  --ems-events-color: magenta;
+  --open-hours-color: #4285f4;
+}
+
 /* Header */
 .header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  height: 6.5vh;
-  padding: 0 1.5vw;
+  padding: 0.8vh 1.5vw;
   background-color: #000;
   border-bottom: 2px solid #333;
 }
 
 .header-logo {
-  height: 60%;
-  width: auto;
+  width: 100%;
 }
 
-.header-contact {
-  margin-left: auto;
+/* Main - day list fills remaining space */
+main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  font-size: 0.9vw;
-  color: #ccc;
+  padding: 0.5vw;
 }
 
-/* Dashboard layout */
-.dashboard {
+/* Day list */
+.day-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
   display: flex;
-  height: calc(100vh - 6.5vh);
-  gap: 0.8vw;
-  padding: 0.8vw;
+  flex-direction: column;
 }
 
-/* Panels */
-.panel {
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.panel-title {
-  font-size: 1.1vw;
-  font-weight: 600;
-  padding: 1.2vh 1vw;
-  background-color: #222;
-  border-bottom: 2px solid #333;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.panel-content {
+.day-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr 1fr;
+  grid-template-rows: repeat(24, auto);
+  column-gap: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid #333;
   flex: 1;
   position: relative;
 }
 
-/* Left panel - Open Hours calendar */
-.panel-calendar {
-  flex: 4;
-  display: flex;
-  flex-direction: column;
+.day-row.is-today {
+  background-color: rgba(66, 133, 244, 0.15);
 }
 
-.panel-calendar .panel-content {
-  flex: 1;
-}
-
-.calendar-iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+.day-row.is-today::before {
   display: block;
+  width: 1rem;
+  content: "🠺";
+  font-size: 1.5rem;
+  position: absolute;
+  left: -0.3rem;
+  top: 0.2rem;
 }
 
-/* Right sidebar */
-.panel-sidebar {
-  flex: 2;
+.day-row.is-past {
+  opacity: 0.4;
+}
+
+.day-row.empty {
+  opacity: 0.65;
+}
+
+.day-date {
+  grid-row: 1 / -1;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.day-events, .day-open-hours {
+  display: contents;
+  color: #ccc;
+}
+
+.event {
+  border-left: 3px solid;
+  padding: 0.3rem 0.6rem;
+  margin: 0.3rem 0;
+  position: relative;
+}
+
+.event .summary {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.event .time {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.day-events > .event {
+  grid-column: 2;
+  border-color: var(--ems-events-color);
+}
+.day-open-hours > .event {
+  grid-column: 3;
+  border-color: var(--open-hours-color);
+}
+
+/* Footer */
+.footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.8vh 1.5vw;
+  background-color: #000;
+  border-top: 2px solid #333;
+  height: fit-content;
+  box-shadow: 0px -10px 15px 0px rgba(153,153,153,0.4);
+}
+
+.footer-contact {
   display: flex;
   flex-direction: column;
-  gap: 0.8vw;
-  background: none;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
-/* Events section */
-.sidebar-events {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.sidebar-events .panel-content {
-  flex: 1;
-}
-
-.events-iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-/* QR code section */
-.sidebar-qr {
+.footer-qr {
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 1vw;
-  padding: 1.5vh 1.2vw;
-  background-color: #1a1a1a;
-  border-radius: 8px;
 }
 
 .qr-label {
-  font-size: 1vw;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #ccc;
   text-transform: uppercase;
@@ -137,8 +167,7 @@ html, body {
 
 .qr-image {
   flex-shrink: 0;
-  height: 12vh;
+  height: 6vh;
   width: auto;
   display: block;
-  margin-left: auto;
 }
