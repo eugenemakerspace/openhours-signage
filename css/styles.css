@@ -1,17 +1,17 @@
-*,
-*::before,
-*::after {
+html {
+  font-size: 2.5vw;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  --ems-events-color: magenta;
+  --open-hours-color: #4285f4;
 }
-
-html, body {
+body {
   width: 100vw;
   height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   font-family: "Titillium Web", Arial, sans-serif;
-  font-size: 3vw;
   background-color: #111;
   color: #eee;
 }
@@ -21,9 +21,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-
-  --ems-events-color: magenta;
-  --open-hours-color: #4285f4;
 }
 
 /* Header */
@@ -77,12 +74,15 @@ main {
 
 .day-row.is-today::before {
   display: block;
-  width: 1rem;
-  content: "🠺";
-  font-size: 1.5rem;
+  content: "";
   position: absolute;
-  left: -0.3rem;
-  top: 0.2rem;
+  left: -0.5rem;
+  top: 0.4rem;
+  width: 0px;
+  height: 0px;
+  border-top: 1rem solid transparent;
+  border-bottom: 1rem solid transparent;
+  border-left: 1rem solid currentColor;
 }
 
 .day-row.is-past {
